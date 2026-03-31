@@ -48,6 +48,7 @@ export function selectOperator(state: CalculatorState, operator: Operator): Calc
     currentInput: { value: '0' },
     operator,
     result: null,
+    expressionBuffer: `${state.currentInput.value} ${operator}`,
   }
 }
 
@@ -63,6 +64,7 @@ export function evaluate(state: CalculatorState): CalculatorState {
     currentInput: result.kind === 'value' ? { value: String(result.value) } : { value: '0' },
     previousInput: null,
     operator: null,
+    expressionBuffer: '',
   }
 }
 

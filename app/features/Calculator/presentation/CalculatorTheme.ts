@@ -7,6 +7,7 @@ import type { InjectionKey } from 'vue'
 export interface ICalculatorTheme {
   root: string
   display: string
+  expressionLine: string
   error: string
   keypad: string
   resetButton: string
@@ -18,7 +19,8 @@ export interface ICalculatorTheme {
 
 export const defaultCalculatorTheme: ICalculatorTheme = {
   root: 'w-72 rounded-3xl bg-zinc-900 shadow-2xl shadow-black/60 border border-zinc-800/50 p-5 flex flex-col gap-4',
-  display: 'rounded-2xl bg-black/70 px-5 py-4 text-right text-4xl font-thin tracking-tight font-mono text-white min-h-[5.5rem] flex items-end justify-end overflow-hidden',
+  display: 'rounded-2xl bg-black/70 px-5 py-4 text-right text-4xl font-thin tracking-tight font-mono text-white min-h-[5.5rem] flex flex-col items-end justify-between overflow-hidden',
+  expressionLine: 'text-sm font-normal text-zinc-500 font-mono min-h-[1rem] truncate w-full text-right',
   error: 'text-red-400 text-base font-normal',
   keypad: 'grid grid-cols-4 gap-2.5',
   resetButton: 'col-span-2  rounded-full bg-zinc-500 hover:bg-zinc-400 active:scale-95 active:brightness-90 text-black font-semibold text-lg py-3.5 transition-all duration-100',

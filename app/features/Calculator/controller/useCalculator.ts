@@ -18,6 +18,7 @@ export function useCalculator(service: ICalculatorService = defaultService) {
   const state = ref(createInitialState())
 
   const display = computed(() => state.value.currentInput.value)
+  const expression = computed(() => state.value.expressionBuffer)
   const activeOperator = computed(() => state.value.operator)
   const errorMessage = computed(() =>
     state.value.result?.kind === 'error' ? state.value.result.message : null,
@@ -41,6 +42,7 @@ export function useCalculator(service: ICalculatorService = defaultService) {
 
   return {
     display,
+    expression,
     activeOperator,
     errorMessage,
     digits: CALCULATOR_DIGITS,

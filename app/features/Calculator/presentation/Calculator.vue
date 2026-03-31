@@ -1,6 +1,7 @@
 <template>
   <div :class="theme.root">
     <div :class="theme.display">
+      <span :class="theme.expressionLine">{{ expression }}</span>
       <span v-if="errorMessage" :class="theme.error">{{ errorMessage }}</span>
       <span v-else>{{ display }}</span>
     </div>
@@ -36,7 +37,7 @@
 import { injectCalculator } from '../controller/useCalculator'
 import { injectCalculatorTheme } from './CalculatorTheme'
 
-const { display, activeOperator, errorMessage, digits, operators, onDigit, onOperator, onEquals, onReset } =
+const { display, expression, activeOperator, errorMessage, digits, operators, onDigit, onOperator, onEquals, onReset } =
   injectCalculator()
 
 const theme = injectCalculatorTheme()

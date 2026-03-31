@@ -10,15 +10,22 @@ import { appendDigit, evaluate, reset, compute } from './CalculatorService'
 // Sélectionne un opérateur en évaluant d'abord l'opération en attente (si elle existe)
 function selectOperator(state: CalculatorState, operator: Operator): CalculatorState {
   if (!state.previousInput || !state.operator) {
-    // Pas d'opération en attente : comportement standard
-    return { ...state, previousInput: state.currentInput, currentInput: { value: '0' }, operator, result: null }
+    // Pas d'opération en attente : on démarre le buffer
+    return {
+      ...state,
+      previousInput: state.currentInput,
+      currentInput: { value: '0' },
+      operator,
+      result: null,
+      expressionBuffer: `${state.currentInput.value} ${operator}`,
+    }
   }
 
-  // Opération en attente : on l'évalue avant de passer au prochain opérateur
+  // Opération en attente : on l'évalue et on accumule dans le buffer
   const result = compute(state.previousInput, state.operator, state.currentInput)
 
   if (result.kind === 'error') {
-    return { ...state, result, currentInput: { value: '0' }, previousInput: null, operator: null }
+    return { ...state, result, currentInput: { value: '0' }, previousInput: null, operator: null, expressionBuffer: '' }
   }
 
   return {
@@ -27,6 +34,7 @@ function selectOperator(state: CalculatorState, operator: Operator): CalculatorS
     currentInput: { value: '0' },
     operator,
     result: null,
+    expressionBuffer: `${state.expressionBuffer} ${state.currentInput.value} ${operator}`,
   }
 }
 

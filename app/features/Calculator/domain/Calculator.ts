@@ -8,6 +8,7 @@ export interface CalculatorState {
   readonly previousInput: Operand | null
   readonly operator: Operator | null
   readonly result: CalculatorResult | null
+  readonly expressionBuffer: string
 }
 
 export function createInitialState(): CalculatorState {
@@ -16,5 +17,6 @@ export function createInitialState(): CalculatorState {
     previousInput: null,
     operator: null,
     result: null,
+    expressionBuffer: '',
   }
 }
