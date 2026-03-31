@@ -1,5 +1,5 @@
 // Variante langage naturel : opérandes saisis en toutes lettres, résultat en chiffres
-// appendDigit remplace l'input (pas d'accumulation), evaluate parse les mots avant de calculer
+// "virgule" permet la saisie décimale : "un" + "virgule" + "cinq" → 1.5
 
 import type { CalculatorState } from '../../domain/Calculator'
 import { createInitialState } from '../../domain/Calculator'
@@ -29,7 +29,21 @@ function computeWords(left: Operand, operator: Operator, right: Operand): Calcul
   }
 }
 
+// "un" → "un" | "un"+"virgule" → "1." | "un"+"virgule"+"cinq" → "1.5"
 function appendDigit(state: CalculatorState, word: string): CalculatorState {
+  const current = state.currentInput.value
+
+  if (word === 'virgule') {
+    const numeric = isValidWord(current) ? String(parseWordToNumber(current)) : current
+    if (numeric.includes('.')) return state
+    return { ...state, currentInput: { value: `${numeric}.` } }
+  }
+
+  if (current.includes('.')) {
+    const digit = isValidWord(word) ? String(parseWordToNumber(word)) : word
+    return { ...state, currentInput: { value: `${current}${digit}` } }
+  }
+
   return { ...state, currentInput: { value: word } }
 }
 
@@ -60,7 +74,10 @@ function evaluate(state: CalculatorState): CalculatorState {
 }
 
 function reset(): CalculatorState {
-  return createInitialState()
+  return {
+    ...createInitialState(),
+    currentInput: { value: 'zéro' },
+  }
 }
 
 export const wordCalculatorService: ICalculatorService = {

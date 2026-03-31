@@ -7,7 +7,7 @@ export const WORD_DIGITS: readonly string[] = [
   'sept', 'huit', 'neuf',
   'quatre', 'cinq', 'six',
   'un', 'deux', 'trois',
-  'zéro',
+  'zéro', 'virgule',
 ]
 
 export const WORD_OPERATORS = CALCULATOR_OPERATORS

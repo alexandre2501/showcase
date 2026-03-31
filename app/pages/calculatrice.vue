@@ -50,10 +50,11 @@
           <CalculatorExample :key="activeExample.id" :service="activeExample.service" />
         </div>
 
-        <div class="pt-2">
+        <div class="pt-2 min-w-0 flex-1">
           <h3 class="text-base font-semibold text-zinc-100 mb-2">{{ activeExample.label }}</h3>
-          <p class="text-sm text-zinc-400 leading-relaxed mb-4">{{ activeExample.description }}</p>
-          <ul class="space-y-1.5">
+          <p class="text-sm text-zinc-400 leading-relaxed mb-6">{{ activeExample.description }}</p>
+
+          <ul class="space-y-1.5 mb-8">
             <li
               v-for="point in activeExample.points"
               :key="point"
@@ -63,6 +64,28 @@
               {{ point }}
             </li>
           </ul>
+
+          <!-- Fichiers clés -->
+          <div>
+            <p class="text-xs font-semibold tracking-widest uppercase text-zinc-600 mb-3">Fichiers</p>
+            <ul class="space-y-1.5">
+              <li v-for="file in activeExample.files" :key="file.path">
+                <a
+                  :href="`${GITHUB_BASE}${file.path}`"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-indigo-400 transition-colors group"
+                >
+                  <span class="text-zinc-700 group-hover:text-indigo-600 transition-colors">
+                    <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                  </span>
+                  <span class="font-mono text-xs">{{ file.label }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -91,6 +114,15 @@ import { calculatorService } from '~/features/Calculator/service/standard/Calcul
 import { chainCalculatorService } from '~/features/Calculator/service/chain/ChainCalculatorService'
 import { wordCalculatorService } from '~/features/Calculator/service/word/WordCalculatorService'
 
+const GITHUB_BASE = 'https://github.com/alexandre2501/showcase/blob/master/'
+
+const SHARED_FILES = [
+  { label: 'domain/Calculator.ts', path: 'app/features/Calculator/domain/Calculator.ts' },
+  { label: 'domain/ICalculatorService.ts', path: 'app/features/Calculator/domain/ICalculatorService.ts' },
+  { label: 'service/shared/CalculatorOperations.ts', path: 'app/features/Calculator/service/shared/CalculatorOperations.ts' },
+  { label: 'controller/useCalculator.ts', path: 'app/features/Calculator/controller/useCalculator.ts' },
+]
+
 const examples = [
   {
     id: 'standard',
@@ -101,6 +133,10 @@ const examples = [
       'Saisir 3 + 4 puis "=" affiche 7',
       'Appuyer sur un opérateur avant "=" remplace l\'opérateur en attente',
       'L\'expression affichée montre la dernière valeur et l\'opérateur sélectionné',
+    ],
+    files: [
+      ...SHARED_FILES,
+      { label: 'service/standard/CalculatorService.ts', path: 'app/features/Calculator/service/standard/CalculatorService.ts' },
     ],
   },
   {
@@ -113,6 +149,10 @@ const examples = [
       'L\'expression complète s\'accumule dans l\'écran',
       'Même interface ICalculatorService, seul selectOperator diffère',
     ],
+    files: [
+      ...SHARED_FILES,
+      { label: 'service/chain/ChainCalculatorService.ts', path: 'app/features/Calculator/service/chain/ChainCalculatorService.ts' },
+    ],
   },
   {
     id: 'word',
@@ -124,6 +164,11 @@ const examples = [
       'Le domain WordCalculatorValueObjects gère le mapping mot→nombre',
       'Les résultats intermédiaires (chiffres) sont réutilisables comme opérandes',
       'Même interface ICalculatorService, digits et operators redéfinis',
+    ],
+    files: [
+      ...SHARED_FILES,
+      { label: 'service/word/WordCalculatorValueObjects.ts', path: 'app/features/Calculator/service/word/WordCalculatorValueObjects.ts' },
+      { label: 'service/word/WordCalculatorService.ts', path: 'app/features/Calculator/service/word/WordCalculatorService.ts' },
     ],
   },
 ]
