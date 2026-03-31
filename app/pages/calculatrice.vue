@@ -87,9 +87,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import CalculatorExample from '~/features/Calculator/presentation/CalculatorExample.vue'
-import { calculatorService } from '~/features/Calculator/service/CalculatorService'
-import { chainCalculatorService } from '~/features/Calculator/service/ChainCalculatorService'
-import { wordCalculatorService } from '~/features/Calculator/service/WordCalculatorService'
+import { calculatorService } from '~/features/Calculator/service/standard/CalculatorService'
+import { chainCalculatorService } from '~/features/Calculator/service/chain/ChainCalculatorService'
+import { wordCalculatorService } from '~/features/Calculator/service/word/WordCalculatorService'
 
 const examples = [
   {

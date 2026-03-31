@@ -1,17 +1,14 @@
-// Service de calcul en langage naturel
-// Les opérandes sont saisis en toutes lettres ("un", "deux"…), le résultat est numérique
-// Différence clé avec CalculatorService : appendDigit remplace l'input (pas d'accumulation)
-// et evaluate parse les mots avant de calculer
+// Variante langage naturel : opérandes saisis en toutes lettres, résultat en chiffres
+// appendDigit remplace l'input (pas d'accumulation), evaluate parse les mots avant de calculer
 
-import type { CalculatorState } from '../domain/Calculator'
-import { createInitialState } from '../domain/Calculator'
-import type { Operator, CalculatorResult } from '../domain/CalculatorValueObjects'
-import { validateDivision } from '../domain/CalculatorValueObjects'
-import type { ICalculatorService } from '../domain/ICalculatorService'
-import { WORD_DIGITS, WORD_OPERATORS, parseWordToNumber, isValidWord } from '../domain/WordCalculatorValueObjects'
-import type { Operand } from '../domain/CalculatorValueObjects'
+import type { CalculatorState } from '../../domain/Calculator'
+import { createInitialState } from '../../domain/Calculator'
+import type { Operator, CalculatorResult } from '../../domain/CalculatorValueObjects'
+import { validateDivision } from '../../domain/CalculatorValueObjects'
+import type { ICalculatorService } from '../../domain/ICalculatorService'
+import type { Operand } from '../../domain/CalculatorValueObjects'
+import { WORD_DIGITS, WORD_OPERATORS, parseWordToNumber, isValidWord } from './WordCalculatorValueObjects'
 
-// Calcule à partir d'opérandes en mots ou en nombres (résultat d'un calcul précédent)
 function computeWords(left: Operand, operator: Operator, right: Operand): CalculatorResult {
   try {
     const a = isValidWord(left.value) ? parseWordToNumber(left.value) : parseFloat(left.value)
@@ -32,7 +29,6 @@ function computeWords(left: Operand, operator: Operator, right: Operand): Calcul
   }
 }
 
-// Remplace l'input courant par le mot — pas d'accumulation caractère par caractère
 function appendDigit(state: CalculatorState, word: string): CalculatorState {
   return { ...state, currentInput: { value: word } }
 }
@@ -56,7 +52,6 @@ function evaluate(state: CalculatorState): CalculatorState {
   return {
     ...state,
     result,
-    // Le résultat est toujours affiché en chiffres
     currentInput: result.kind === 'value' ? { value: String(result.value) } : { value: '0' },
     previousInput: null,
     operator: null,

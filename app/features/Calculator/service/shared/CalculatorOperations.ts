@@ -1,13 +1,11 @@
-// Logique métier de la calculatrice
+// Opérations arithmétiques partagées entre toutes les variantes du service
 // Fonctions pures, sans dépendance à Vue ni à l'infrastructure
 
-import type { Operand, Operator, CalculatorResult } from '../domain/CalculatorValueObjects'
-import { validateDivision, CALCULATOR_DIGITS, CALCULATOR_OPERATORS } from '../domain/CalculatorValueObjects'
-import type { CalculatorState } from '../domain/Calculator'
-import { createInitialState } from '../domain/Calculator'
-import type { ICalculatorService } from '../domain/ICalculatorService'
+import type { Operand, Operator, CalculatorResult } from '../../domain/CalculatorValueObjects'
+import { validateDivision } from '../../domain/CalculatorValueObjects'
+import type { CalculatorState } from '../../domain/Calculator'
+import { createInitialState } from '../../domain/Calculator'
 
-// Calcule le résultat d'une opération entre deux opérandes
 export function compute(left: Operand, operator: Operator, right: Operand): CalculatorResult {
   const a = parseFloat(left.value)
   const b = parseFloat(right.value)
@@ -28,7 +26,6 @@ export function compute(left: Operand, operator: Operator, right: Operand): Calc
   return { kind: 'value', value: operations[operator]() }
 }
 
-// Ajoute un chiffre ou un point à l'entrée courante
 export function appendDigit(state: CalculatorState, digit: string): CalculatorState {
   const current = state.currentInput.value
 
@@ -40,7 +37,6 @@ export function appendDigit(state: CalculatorState, digit: string): CalculatorSt
   return { ...state, currentInput: { value: current + digit } }
 }
 
-// Sélectionne un opérateur et prépare le prochain opérande
 export function selectOperator(state: CalculatorState, operator: Operator): CalculatorState {
   return {
     ...state,
@@ -52,7 +48,6 @@ export function selectOperator(state: CalculatorState, operator: Operator): Calc
   }
 }
 
-// Exécute le calcul et retourne le nouvel état
 export function evaluate(state: CalculatorState): CalculatorState {
   if (!state.previousInput || !state.operator) return state
 
@@ -68,17 +63,6 @@ export function evaluate(state: CalculatorState): CalculatorState {
   }
 }
 
-// Réinitialise l'état
 export function reset(): CalculatorState {
   return createInitialState()
-}
-
-// Implémentation concrète par défaut — injectée dans le controller
-export const calculatorService: ICalculatorService = {
-  digits: CALCULATOR_DIGITS,
-  operators: CALCULATOR_OPERATORS,
-  appendDigit,
-  selectOperator,
-  evaluate,
-  reset,
 }

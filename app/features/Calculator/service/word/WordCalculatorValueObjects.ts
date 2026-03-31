@@ -1,7 +1,7 @@
-// Value objects du domaine de la calculatrice en langage naturel
+// Value objects propres à la variante "langage naturel"
 // Invariant : seuls les mots enregistrés ici sont des entrées valides
 
-import { CALCULATOR_OPERATORS } from './CalculatorValueObjects'
+import { CALCULATOR_OPERATORS } from '../../domain/CalculatorValueObjects'
 
 export const WORD_DIGITS: readonly string[] = [
   'sept', 'huit', 'neuf',
@@ -17,7 +17,6 @@ const WORD_TO_NUMBER: Readonly<Record<string, number>> = {
   'cinq': 5, 'six': 6, 'sept': 7, 'huit': 8, 'neuf': 9,
 }
 
-// Parse un mot en nombre — lève une erreur métier si le mot est inconnu
 export function parseWordToNumber(word: string): number {
   const value = WORD_TO_NUMBER[word]
   if (value === undefined) throw new Error(`Mot inconnu : "${word}"`)

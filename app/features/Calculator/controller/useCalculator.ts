@@ -6,7 +6,7 @@ import type { InjectionKey } from 'vue'
 import type { Operator } from '../domain/CalculatorValueObjects'
 import type { ICalculatorService } from '../domain/ICalculatorService'
 import { createInitialState } from '../domain/Calculator'
-import { calculatorService as defaultService } from '../service/CalculatorService'
+import { calculatorService as defaultService } from '../service/standard/CalculatorService'
 
 // Clé typée pour provide/inject — garantit que la présentation reçoit le bon type
 export type CalculatorController = ReturnType<typeof useCalculator>
