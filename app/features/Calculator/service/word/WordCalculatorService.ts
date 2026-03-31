@@ -51,7 +51,7 @@ function selectOperator(state: CalculatorState, operator: Operator): CalculatorS
   return {
     ...state,
     previousInput: state.currentInput,
-    currentInput: { value: '0' },
+    currentInput: { value: 'zéro' },
     operator,
     result: null,
     expressionBuffer: `${state.currentInput.value} ${operator}`,
@@ -66,7 +66,7 @@ function evaluate(state: CalculatorState): CalculatorState {
   return {
     ...state,
     result,
-    currentInput: result.kind === 'value' ? { value: String(result.value) } : { value: '0' },
+    currentInput: result.kind === 'value' ? { value: String(result.value) } : { value: 'zéro' },
     previousInput: null,
     operator: null,
     expressionBuffer: '',

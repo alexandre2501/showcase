@@ -5,7 +5,6 @@ import { ref, computed, provide, inject } from 'vue'
 import type { InjectionKey } from 'vue'
 import type { Operator } from '../domain/CalculatorValueObjects'
 import type { ICalculatorService } from '../domain/ICalculatorService'
-import { createInitialState } from '../domain/Calculator'
 import { calculatorService as defaultService } from '../service/standard/CalculatorService'
 
 // Clé typée pour provide/inject — garantit que la présentation reçoit le bon type
@@ -14,7 +13,7 @@ export const CalculatorKey: InjectionKey<CalculatorController> = Symbol('Calcula
 
 // Instancie le controller avec un service injecté (défaut : implémentation standard)
 export function useCalculator(service: ICalculatorService = defaultService) {
-  const state = ref(createInitialState())
+  const state = ref(service.reset())
 
   const display = computed(() => state.value.currentInput.value)
   const expression = computed(() => state.value.expressionBuffer)
