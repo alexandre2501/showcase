@@ -14,43 +14,69 @@
         Retour
       </NuxtLink>
 
-      <p class="text-xs font-semibold tracking-widest uppercase text-indigo-400 mb-4">
-        Architecture
-      </p>
-      <h1 class="text-3xl sm:text-4xl font-bold text-zinc-100 leading-tight mb-4">
-        Calculatrice DDD
-      </h1>
+      <p class="text-xs font-semibold tracking-widest uppercase text-indigo-400 mb-4">Architecture</p>
+      <h1 class="text-3xl sm:text-4xl font-bold text-zinc-100 leading-tight mb-4">Calculatrice DDD</h1>
       <p class="text-base text-zinc-400 max-w-xl leading-relaxed">
         Une calculatrice construite selon les principes du Domain-Driven Design.
-        La logique métier est isolée du framework, le controller est injecté via
-        <code class="text-indigo-400 text-sm">provide/inject</code>, et le service
-        est swappable sans toucher à la présentation.
+        Plusieurs implémentations du service illustrent comment swapper la logique métier
+        sans toucher au controller ni à la présentation.
       </p>
     </div>
 
-    <!-- Démo -->
+    <!-- Exemples -->
     <section class="mb-20">
-      <h2 class="text-xs font-semibold tracking-widest uppercase text-zinc-500 mb-8">
-        Démo
-      </h2>
-      <Calculator />
+      <h2 class="text-xs font-semibold tracking-widest uppercase text-zinc-500 mb-6">Exemples</h2>
+
+      <!-- Onglets -->
+      <div class="flex gap-1 mb-8 border-b border-zinc-800">
+        <button
+          v-for="example in examples"
+          :key="example.id"
+          :class="[
+            'px-4 py-2.5 text-sm font-medium transition-colors -mb-px border-b-2',
+            activeExample.id === example.id
+              ? 'text-zinc-100 border-indigo-500'
+              : 'text-zinc-500 border-transparent hover:text-zinc-300'
+          ]"
+          @click="setActive(example.id)"
+        >
+          {{ example.label }}
+        </button>
+      </div>
+
+      <!-- Contenu : on affiche uniquement l'exemple actif, :key force le remount au changement -->
+      <div class="flex flex-col sm:flex-row gap-10 items-start">
+        <div class="shrink-0">
+          <CalculatorExample :key="activeExample.id" :service="activeExample.service" />
+        </div>
+
+        <div class="pt-2">
+          <h3 class="text-base font-semibold text-zinc-100 mb-2">{{ activeExample.label }}</h3>
+          <p class="text-sm text-zinc-400 leading-relaxed mb-4">{{ activeExample.description }}</p>
+          <ul class="space-y-1.5">
+            <li
+              v-for="point in activeExample.points"
+              :key="point"
+              class="flex items-start gap-2 text-sm text-zinc-500"
+            >
+              <span class="text-indigo-400 mt-0.5 shrink-0">—</span>
+              {{ point }}
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- Architecture -->
     <section>
-      <h2 class="text-xs font-semibold tracking-widest uppercase text-zinc-500 mb-8">
-        Structure
-      </h2>
-
+      <h2 class="text-xs font-semibold tracking-widest uppercase text-zinc-500 mb-8">Structure</h2>
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div
           v-for="layer in layers"
           :key="layer.name"
           class="rounded-xl border border-zinc-800 bg-zinc-900 p-5"
         >
-          <p class="text-xs font-semibold tracking-widest uppercase text-indigo-400 mb-2">
-            {{ layer.name }}
-          </p>
+          <p class="text-xs font-semibold tracking-widest uppercase text-indigo-400 mb-2">{{ layer.name }}</p>
           <p class="text-sm text-zinc-400 leading-relaxed">{{ layer.description }}</p>
         </div>
       </div>
@@ -59,14 +85,45 @@
 </template>
 
 <script setup lang="ts">
-import { provideCalculator } from '~/features/Calculator/controller/useCalculator'
-import { provideCalculatorTheme } from '~/features/Calculator/presentation/CalculatorTheme'
-import Calculator from '~/features/Calculator/presentation/Calculator.vue'
+import { ref, computed } from 'vue'
+import CalculatorExample from '~/features/Calculator/presentation/CalculatorExample.vue'
+import { calculatorService } from '~/features/Calculator/service/CalculatorService'
+import { chainCalculatorService } from '~/features/Calculator/service/ChainCalculatorService'
 
-provideCalculator()
+const examples = [
+  {
+    id: 'standard',
+    label: 'Service standard',
+    service: calculatorService,
+    description: 'Comportement classique : les opérations ne s\'évaluent qu\'à l\'appui sur "=".',
+    points: [
+      'Saisir 3 + 4 puis "=" affiche 7',
+      'Appuyer sur un opérateur avant "=" remplace l\'opérateur en attente',
+      'L\'expression affichée montre la dernière valeur et l\'opérateur sélectionné',
+    ],
+  },
+  {
+    id: 'chain',
+    label: 'Service chaîné',
+    service: chainCalculatorService,
+    description: 'Les opérations s\'enchaînent sans "=" : chaque nouvel opérateur évalue immédiatement l\'opération en attente.',
+    points: [
+      'Saisir 3 + 4 - 9 * 8 calcule ((3+4)-9)*8 en temps réel',
+      'L\'expression complète s\'accumule dans l\'écran',
+      'Même interface ICalculatorService, seul selectOperator diffère',
+    ],
+  },
+]
 
-// Thème par défaut — surcharger certaines clés suffit pour personnaliser
-provideCalculatorTheme()
+const activeId = ref(examples[0].id)
+
+const activeExample = computed(
+  () => examples.find(e => e.id === activeId.value) ?? examples[0]
+)
+
+function setActive(id: string) {
+  activeId.value = id
+}
 
 const layers = [
   {
