@@ -2,7 +2,7 @@
 // Fonctions pures, sans dépendance à Vue ni à l'infrastructure
 
 import type { Operand, Operator, CalculatorResult } from '../domain/CalculatorValueObjects'
-import { validateDivision } from '../domain/CalculatorValueObjects'
+import { validateDivision, CALCULATOR_DIGITS, CALCULATOR_OPERATORS } from '../domain/CalculatorValueObjects'
 import type { CalculatorState } from '../domain/Calculator'
 import { createInitialState } from '../domain/Calculator'
 import type { ICalculatorService } from '../domain/ICalculatorService'
@@ -75,6 +75,8 @@ export function reset(): CalculatorState {
 
 // Implémentation concrète par défaut — injectée dans le controller
 export const calculatorService: ICalculatorService = {
+  digits: CALCULATOR_DIGITS,
+  operators: CALCULATOR_OPERATORS,
   appendDigit,
   selectOperator,
   evaluate,

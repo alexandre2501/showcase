@@ -89,6 +89,7 @@ import { ref, computed } from 'vue'
 import CalculatorExample from '~/features/Calculator/presentation/CalculatorExample.vue'
 import { calculatorService } from '~/features/Calculator/service/CalculatorService'
 import { chainCalculatorService } from '~/features/Calculator/service/ChainCalculatorService'
+import { wordCalculatorService } from '~/features/Calculator/service/WordCalculatorService'
 
 const examples = [
   {
@@ -111,6 +112,18 @@ const examples = [
       'Saisir 3 + 4 - 9 * 8 calcule ((3+4)-9)*8 en temps réel',
       'L\'expression complète s\'accumule dans l\'écran',
       'Même interface ICalculatorService, seul selectOperator diffère',
+    ],
+  },
+  {
+    id: 'word',
+    label: 'Service en lettres',
+    service: wordCalculatorService,
+    description: 'Les opérandes sont saisis en toutes lettres. Le résultat s\'affiche toujours en chiffres.',
+    points: [
+      'Chaque bouton remplace l\'opérande courant (pas d\'accumulation)',
+      'Le domain WordCalculatorValueObjects gère le mapping mot→nombre',
+      'Les résultats intermédiaires (chiffres) sont réutilisables comme opérandes',
+      'Même interface ICalculatorService, digits et operators redéfinis',
     ],
   },
 ]

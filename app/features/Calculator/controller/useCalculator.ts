@@ -4,7 +4,6 @@
 import { ref, computed, provide, inject } from 'vue'
 import type { InjectionKey } from 'vue'
 import type { Operator } from '../domain/CalculatorValueObjects'
-import { CALCULATOR_DIGITS, CALCULATOR_OPERATORS } from '../domain/CalculatorValueObjects'
 import type { ICalculatorService } from '../domain/ICalculatorService'
 import { createInitialState } from '../domain/Calculator'
 import { calculatorService as defaultService } from '../service/CalculatorService'
@@ -45,8 +44,8 @@ export function useCalculator(service: ICalculatorService = defaultService) {
     expression,
     activeOperator,
     errorMessage,
-    digits: CALCULATOR_DIGITS,
-    operators: CALCULATOR_OPERATORS,
+    digits: service.digits,
+    operators: service.operators,
     onDigit,
     onOperator,
     onEquals,

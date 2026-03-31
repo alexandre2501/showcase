@@ -5,6 +5,7 @@
 import type { CalculatorState } from '../domain/Calculator'
 import type { Operator } from '../domain/CalculatorValueObjects'
 import type { ICalculatorService } from '../domain/ICalculatorService'
+import { CALCULATOR_DIGITS, CALCULATOR_OPERATORS } from '../domain/CalculatorValueObjects'
 import { appendDigit, evaluate, reset, compute } from './CalculatorService'
 
 // Sélectionne un opérateur en évaluant d'abord l'opération en attente (si elle existe)
@@ -39,6 +40,8 @@ function selectOperator(state: CalculatorState, operator: Operator): CalculatorS
 }
 
 export const chainCalculatorService: ICalculatorService = {
+  digits: CALCULATOR_DIGITS,
+  operators: CALCULATOR_OPERATORS,
   appendDigit,
   selectOperator,
   evaluate,
