@@ -14,6 +14,14 @@
       </p>
     </section>
 
+    <!-- Disclaimer -->
+    <section class="mb-20">
+      <p class="text-sm text-zinc-500 leading-relaxed max-w-xl border-l-2 border-zinc-700 pl-4">
+        Chaque exemple présenté ici est conçu et imaginé de toutes pièces et n'est pas poussé au maximum. Ils ont surtout vocations à montrer certains patterns intéressant
+        mais ne correspondent pas forcément à un réel besoin. J'aime juste explorer les concepts.
+      </p>
+    </section>
+
     <!-- Showcase grid -->
     <section>
       <h2 class="text-xs font-semibold tracking-widest uppercase text-zinc-500 mb-8">

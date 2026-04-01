@@ -27,10 +27,6 @@
       <slot />
     </main>
 
-    <footer class="border-t border-zinc-800 py-6">
-      <div class="max-w-5xl mx-auto px-6 text-center text-xs text-zinc-600">
-        Exemples &amp; patterns Vue / Nuxt &mdash; code source disponible sur GitHub
-      </div>
-    </footer>
+    <AppFooter />
   </div>
 </template>
