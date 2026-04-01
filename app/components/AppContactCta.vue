@@ -1,0 +1,31 @@
+<template>
+  <section class="mt-20 mb-20 rounded-xl border border-indigo-500/30 bg-indigo-950/30 px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 ring-1 ring-inset ring-indigo-500/10">
+    <div>
+      <p class="text-xs font-semibold tracking-widest uppercase text-indigo-400 mb-2">Intéressé par ce pattern ?</p>
+      <p class="text-sm text-zinc-400 leading-relaxed max-w-md">
+        Ce type d'architecture vous parle ? Je suis disponible pour en discuter ou
+        collaborer sur vos projets Vue&nbsp;/&nbsp;Nuxt.
+      </p>
+    </div>
+    <div class="flex items-center gap-3 shrink-0">
+      <a
+        href="https://www.linkedin.com/in/alexandre-urbanski-b87345107/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="px-4 py-2 rounded-lg border border-zinc-700 text-xs font-medium text-zinc-300
+               hover:border-indigo-500 hover:text-white transition-all duration-200"
+      >
+        LinkedIn
+      </a>
+      <a
+        href="https://www.malt.fr/profile/alexandreurbanski1"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="px-4 py-2 rounded-lg bg-indigo-600 text-xs font-medium text-white
+               hover:bg-indigo-500 transition-all duration-200"
+      >
+        Me contacter sur Malt
+      </a>
+    </div>
+  </section>
+</template>

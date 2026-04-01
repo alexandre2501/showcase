@@ -90,6 +90,8 @@
       </div>
     </section>
 
+    <AppContactCta />
+
     <!-- Architecture -->
     <section>
       <h2 class="text-xs font-semibold tracking-widest uppercase text-zinc-500 mb-8">Structure</h2>
