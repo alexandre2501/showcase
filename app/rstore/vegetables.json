@@ -1,0 +1,14 @@
+[
+  { "id": "1", "name": "Carotte", "category": "racine", "done": false },
+  { "id": "2", "name": "Betterave", "category": "racine", "done": false },
+  { "id": "3", "name": "Radis", "category": "racine", "done": true },
+  { "id": "4", "name": "Épinard", "category": "feuille", "done": false },
+  { "id": "5", "name": "Laitue", "category": "feuille", "done": false },
+  { "id": "6", "name": "Chou kale", "category": "feuille", "done": true },
+  { "id": "7", "name": "Tomate", "category": "fruit", "done": false },
+  { "id": "8", "name": "Courgette", "category": "fruit", "done": false },
+  { "id": "9", "name": "Poivron", "category": "fruit", "done": true },
+  { "id": "10", "name": "Lentille", "category": "légumineuse", "done": false },
+  { "id": "11", "name": "Pois chiche", "category": "légumineuse", "done": false },
+  { "id": "12", "name": "Haricot vert", "category": "légumineuse", "done": false }
+]
