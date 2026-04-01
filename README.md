@@ -1,75 +1,20 @@
-# Nuxt Minimal Starter
+# Showcase — Alexandre Urbanski
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Site personnel de démonstration technique, construit avec Nuxt 4 (Vue 3 + TypeScript) et déployé sur GitHub Pages.
 
-## Setup
+Chaque page présente un exemple concret d'architecture ou de pattern frontend, conçu et imaginé de toutes pièces. L'objectif n'est pas de répondre à un besoin métier réel, mais d'explorer des approches techniques et d'en montrer une implémentation de qualité production.
 
-Make sure to install dependencies:
+**Site déployé :** https://alexandre2501.github.io/showcase/
+
+**Exemples actuels :**
+- **[Calculatrice DDD](https://alexandre2501.github.io/showcase/calculatrice)** — une calculatrice avec plusieurs implémentations de service, illustrant les principes du Domain-Driven Design
+- **[Models (rstore + DDD)](https://alexandre2501.github.io/showcase/models)** — un store réactif rstore encapsulé derrière une architecture DDD, rendant le store swappable sans toucher au controller ni à la présentation
+
+## Lancer le projet
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+npm run dev       # Serveur de développement sur http://localhost:3000
+npm run generate  # Build statique pour GitHub Pages
+npm run preview   # Prévisualiser le build statique en local
 ```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
