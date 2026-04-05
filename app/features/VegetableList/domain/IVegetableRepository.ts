@@ -16,7 +16,7 @@ export interface IVegetableRepository {
   findAll(filter?: VegetableFilter): Ref<ReadonlyArray<Vegetable>>
 
   /**
-   * Bascule l'état done/undone d'un légume.
+   * Persiste l'état d'un légume (après mutation dans le domaine).
    */
-  toggleDone(id: string): Promise<void>
+  save(vegetable: Vegetable): Promise<void>
 }

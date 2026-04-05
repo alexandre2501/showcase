@@ -39,7 +39,9 @@ export function useVegetableList(
   }
 
   async function toggle(id: string): Promise<void> {
-    await repository.toggleDone(id)
+    const vegetable = repository.findAll().value.find(v => v.id === id)
+    if (!vegetable) return
+    await repository.save(vegetable.toggle())
   }
 
   return {
