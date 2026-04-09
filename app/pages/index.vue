@@ -45,7 +45,6 @@
               <svg
                 class="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 transition-colors shrink-0 mt-0.5"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="2"
                 stroke="currentColor"
@@ -67,6 +66,40 @@
         </li>
         <li>
           <NuxtLink
+            to="/client-api"
+            class="group block rounded-xl border border-zinc-800 bg-zinc-900 p-6
+                   hover:border-indigo-500/60 hover:bg-zinc-800/60 transition-all duration-200"
+          >
+            <div class="flex items-start justify-between gap-4 mb-3">
+              <span
+                class="text-xs font-semibold tracking-widest uppercase
+                       text-indigo-400 group-hover:text-indigo-300 transition-colors"
+              >
+                API Layer
+              </span>
+              <svg
+                class="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 transition-colors shrink-0 mt-0.5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+              </svg>
+            </div>
+
+            <h3 class="text-base font-semibold text-zinc-100 mb-2 group-hover:text-white transition-colors">
+              Client API — DDD + Mock
+            </h3>
+            <p class="text-sm text-zinc-500 leading-relaxed group-hover:text-zinc-400 transition-colors">
+              Un client API typé encapsulé derrière une interface de domaine — l'implémentation mock
+              est swappable contre un vrai client HTTP sans toucher au controller ni à la présentation.
+            </p>
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink
             to="/models"
             class="group block rounded-xl border border-zinc-800 bg-zinc-900 p-6
                    hover:border-indigo-500/60 hover:bg-zinc-800/60 transition-all duration-200"
@@ -81,7 +114,6 @@
               <svg
                 class="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 transition-colors shrink-0 mt-0.5"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="2"
                 stroke="currentColor"
