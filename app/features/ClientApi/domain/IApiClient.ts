@@ -3,12 +3,19 @@
 // Toute implémentation (mock, HTTP, test) doit satisfaire ce contrat
 
 import type { Pokemon, PokemonId, PokemonQuery, PaginatedResult } from './pokemon.types'
+import type { Berry, BerryId, BerryQuery } from './berry.types'
 
 export interface PokemonEndpoints {
   getAll(query: PokemonQuery): Promise<PaginatedResult<Pokemon>>
   getById(id: PokemonId): Promise<Pokemon | null>
 }
 
+export interface BerryEndpoints {
+  getAll(query: BerryQuery): Promise<PaginatedResult<Berry>>
+  getById(id: BerryId): Promise<Berry | null>
+}
+
 export interface IApiClient {
   pokemons: PokemonEndpoints
+  berries: BerryEndpoints
 }
