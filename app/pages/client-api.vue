@@ -54,9 +54,9 @@
       </div>
 
       <div class="flex flex-col sm:flex-row gap-10 items-start">
-        <!-- :key force le remontage du composable quand la source change -->
+        <!-- :key force le remontage du provider (et donc du composable) quand la source change -->
         <div class="shrink-0">
-          <PokemonList :key="source" :client="source === 'http' ? httpClient : undefined" />
+          <PokemonListRoot :key="source" :client="source === 'http' ? httpClient : undefined" />
         </div>
 
         <div class="pt-2 min-w-0 flex-1">
@@ -168,7 +168,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import PokemonList from '~/features/ClientApi/presentation/PokemonList.vue'
+import PokemonListRoot from '~/features/ClientApi/presentation/PokemonListRoot.vue'
 import { createHttpApiClient } from '~/features/ClientApi/infrastructure/HttpApiClient'
 
 const GITHUB_BASE = 'https://github.com/alexandre2501/showcase/blob/master/'

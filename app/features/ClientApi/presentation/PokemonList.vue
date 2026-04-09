@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import type { IApiClient } from '../domain/IApiClient'
-import { usePokemons } from '../controller/usePokemons'
+import { injectPokemons } from '../controller/usePokemons.provider'
 import PokemonCard from './PokemonCard.vue'
-
-// client optionnel — injecté depuis l'extérieur pour switcher d'implémentation
-// par défaut : MockApiClient (voir usePokemons)
-const props = defineProps<{ client?: IApiClient }>()
 
 const {
   pokemons,
@@ -19,7 +14,7 @@ const {
   hasPrevPage,
   setSearch,
   goToPage,
-} = usePokemons(props.client)
+} = injectPokemons()
 </script>
 
 <template>
