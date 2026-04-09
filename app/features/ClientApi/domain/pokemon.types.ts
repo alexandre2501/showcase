@@ -3,25 +3,26 @@
 
 export type PokemonId = number & { readonly __brand: 'PokemonId' }
 
-export type PokemonType =
-  | 'feu'
-  | 'eau'
-  | 'plante'
-  | 'électrik'
-  | 'normal'
-  | 'glace'
-  | 'combat'
-  | 'poison'
-  | 'sol'
-  | 'vol'
-  | 'psy'
-  | 'insecte'
-  | 'roche'
-  | 'spectre'
-  | 'dragon'
-  | 'ténèbres'
-  | 'acier'
-  | 'fée'
+export enum PokemonType {
+  FIRE = 'feu',
+  WATER = 'eau',
+  GRASS = 'plante',
+  ELECTRIC = 'électrique',
+  NORMAL = 'normal',
+  ICE = 'glace',
+  FIGHTING = 'combat',
+  POISON = 'poison',
+  GROUND = 'sol',
+  FLYING = 'vol',
+  PSYCHIC = 'psy',
+  BUG = 'insecte',
+  ROCK = 'roche',
+  GHOST = 'spectre',
+  DRAGON = 'dragon',
+  DARK = 'ténèbres',
+  STEEL = 'acier',
+  FAIRY = 'fée',
+}
 
 export interface Pokemon {
   id: PokemonId
