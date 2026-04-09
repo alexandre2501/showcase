@@ -196,18 +196,61 @@ const httpPoints = [
 ]
 
 const mockFiles = [
-  { label: 'domain/IApiClient.ts', path: 'app/features/ClientApi/domain/IApiClient.ts' },
-  { label: 'domain/IPokemonService.ts', path: 'app/features/ClientApi/domain/IPokemonService.ts' },
-  { label: 'domain/IBerryService.ts', path: 'app/features/ClientApi/domain/IBerryService.ts' },
-  { label: 'infrastructure/MockApiClient.ts', path: 'app/features/ClientApi/infrastructure/MockApiClient.ts' },
-  { label: 'controller/useApiClient.provider.ts', path: 'app/features/ClientApi/controller/useApiClient.provider.ts' },
+  {
+    label: 'domain/IApiClient.ts',
+    path: 'app/features/ClientApi/domain/IApiClient.ts'
+  },
+  {
+    label: 'domain/pokemon/IPokemonService.ts',
+    path: 'app/features/ClientApi/domain/pokemon/IPokemonService.ts'
+  },
+  {
+    label: 'domain/berry/IBerryService.ts',
+    path: 'app/features/ClientApi/domain/berry/IBerryService.ts'
+  },
+  {
+    label: 'infrastructure/MockApiClient.ts',
+    path: 'app/features/ClientApi/infrastructure/MockApiClient.ts'
+  },
+  {
+    label: 'infrastructure/pokemon/pokemon.mock-endpoints.ts',
+    path: 'app/features/ClientApi/infrastructure/pokemon/pokemon.mock-endpoints.ts'
+  },
+  {
+    label: 'infrastructure/berry/berry.mock-endpoints.ts',
+    path: 'app/features/ClientApi/infrastructure/berry/berry.mock-endpoints.ts'
+  },
+  {
+    label: 'controller/useApiClient.provider.ts',
+    path: 'app/features/ClientApi/controller/useApiClient.provider.ts'
+  },
 ]
 
 const httpFiles = [
-  { label: 'infrastructure/pokemon/pokemon.dto.ts', path: 'app/features/ClientApi/infrastructure/pokemon/pokemon.dto.ts' },
-  { label: 'infrastructure/berry/berry.dto.ts', path: 'app/features/ClientApi/infrastructure/berry/berry.dto.ts' },
-  { label: 'infrastructure/pokeapi.shared.ts', path: 'app/features/ClientApi/infrastructure/pokeapi.shared.ts' },
-  { label: 'infrastructure/HttpApiClient.ts', path: 'app/features/ClientApi/infrastructure/HttpApiClient.ts' },
+  {
+    label: 'infrastructure/HttpApiClient.ts',
+    path: 'app/features/ClientApi/infrastructure/HttpApiClient.ts'
+  },
+  {
+    label: 'infrastructure/pokeapi.shared.ts',
+    path: 'app/features/ClientApi/infrastructure/pokeapi.shared.ts'
+  },
+  {
+    label: 'infrastructure/pokemon/pokemon.dto.ts',
+    path: 'app/features/ClientApi/infrastructure/pokemon/pokemon.dto.ts'
+  },
+  {
+    label: 'infrastructure/pokemon/pokemon.api-endpoints.ts',
+    path: 'app/features/ClientApi/infrastructure/pokemon/pokemon.api-endpoints.ts'
+  },
+  {
+    label: 'infrastructure/berry/berry.dto.ts',
+    path: 'app/features/ClientApi/infrastructure/berry/berry.dto.ts'
+  },
+  {
+    label: 'infrastructure/berry/berry.api-endpoints.ts',
+    path: 'app/features/ClientApi/infrastructure/berry/berry.api-endpoints.ts'
+  },
 ]
 
 const layers = [
