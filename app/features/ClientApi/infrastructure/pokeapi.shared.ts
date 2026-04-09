@@ -1,7 +1,7 @@
 // Utilitaires partagés PokéAPI — utilisés par plusieurs mappers de ressource
 // Isolés ici pour éviter la duplication entre les dossiers pokemon/ et berry/
 
-import { PokemonType } from '../domain/pokemon.types'
+import { PokemonType } from '../domain/pokemon/pokemon.types'
 
 // Traduit les noms de type anglais de PokéAPI vers l'enum domaine PokemonType
 // Utilisé par pokemon.dto.ts (types du Pokémon) et berry.dto.ts (natural_gift_type)

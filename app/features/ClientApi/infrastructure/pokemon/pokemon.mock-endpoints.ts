@@ -2,8 +2,8 @@
 // Recherche floue + pagination calculées in-memory
 
 import type { PokemonEndpoints } from '../../domain/IApiClient'
-import { PokemonType } from '../../domain/pokemon.types'
-import type { Pokemon, PokemonId, PokemonQuery, PaginatedResult } from '../../domain/pokemon.types'
+import { PokemonType } from '../../domain/pokemon/pokemon.types'
+import type { Pokemon, PokemonId, PokemonQuery, PaginatedResult } from '../../domain/pokemon/pokemon.types'
 
 const SPRITE_BASE = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon'
 

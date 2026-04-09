@@ -2,8 +2,8 @@
 // Isolé par ressource : si l'endpoint /berry change, seul ce fichier est impacté
 
 import type { BerryEndpoints } from '../../domain/IApiClient'
-import type { Berry, BerryId, BerryQuery } from '../../domain/berry.types'
-import type { PaginatedResult } from '../../domain/pokemon.types'
+import type { Berry, BerryId, BerryQuery } from '../../domain/berry/berry.types'
+import type { PaginatedResult } from '../../domain/pokemon/pokemon.types'
 import type { BerryListDto, BerryDetailDto } from './berry.dto'
 import { berryFromDetailDto } from './berry.dto'
 import { idFromResourceUrl } from '../pokeapi.shared'

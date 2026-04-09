@@ -1,42 +1,26 @@
 <script setup lang="ts">
-import { usePokemons } from '../controller/usePokemons'
-import PokemonCard from './PokemonCard.vue'
+import { useBerries } from '../controller/useBerries'
+import BerryCard from './BerryCard.vue'
 
 const {
-  pokemons,
+  berries,
   isLoading,
   error,
-  search,
   currentPage,
   totalPages,
   total,
   hasNextPage,
   hasPrevPage,
-  setSearch,
   goToPage,
-} = usePokemons()
+} = useBerries()
 </script>
 
 <template>
   <div class="w-full max-w-sm">
-    <!-- Recherche -->
-    <div class="mb-4">
-      <input
-        :value="search"
-        type="text"
-        placeholder="Rechercher un Pokémon..."
-        class="w-full bg-zinc-800/60 border border-zinc-700 rounded-lg px-4 py-2.5 text-sm
-               text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/60
-               transition-colors"
-        @input="setSearch(($event.target as HTMLInputElement).value)"
-      />
-    </div>
-
     <!-- Compteur -->
     <p class="text-xs text-zinc-600 mb-3 h-4">
       <template v-if="!isLoading">
-        {{ total }} Pokémon{{ total > 1 ? 's' : '' }}
-        <template v-if="search"> · "{{ search }}"</template>
+        {{ total }} baie{{ total > 1 ? 's' : '' }}
       </template>
     </p>
 
@@ -49,14 +33,9 @@ const {
     </div>
 
     <template v-else>
-      <!-- Résultats vides -->
-      <div v-if="pokemons.length === 0" class="py-12 text-center text-sm text-zinc-600">
-        Aucun Pokémon trouvé
-      </div>
-
       <!-- Cartes -->
-      <div v-else class="space-y-2 mb-4">
-        <PokemonCard v-for="pokemon in pokemons" :key="pokemon.id" :pokemon="pokemon" />
+      <div v-if="berries.length > 0" class="space-y-2 mb-4">
+        <BerryCard v-for="berry in berries" :key="berry.id" :berry="berry" />
       </div>
 
       <!-- Pagination -->

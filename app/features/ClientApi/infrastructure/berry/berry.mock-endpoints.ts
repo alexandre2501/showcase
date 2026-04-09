@@ -2,10 +2,10 @@
 // Pagination calculée in-memory
 
 import type { BerryEndpoints } from '../../domain/IApiClient'
-import { BerryFirmness } from '../../domain/berry.types'
-import type { Berry, BerryId, BerryQuery } from '../../domain/berry.types'
-import { PokemonType } from '../../domain/pokemon.types'
-import type { PaginatedResult } from '../../domain/pokemon.types'
+import { BerryFirmness } from '../../domain/berry/berry.types'
+import type { Berry, BerryId, BerryQuery } from '../../domain/berry/berry.types'
+import { PokemonType } from '../../domain/pokemon/pokemon.types'
+import type { PaginatedResult } from '../../domain/pokemon/pokemon.types'
 
 const MOCK_BERRIES: Berry[] = [
   { id: 1  as BerryId, name: 'Ceriz',    firmness: BerryFirmness.SOFT,       naturalGiftType: PokemonType.FIRE },

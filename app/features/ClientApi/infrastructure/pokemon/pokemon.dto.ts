@@ -1,8 +1,8 @@
 // DTOs Pokémon — formes brutes des réponses PokéAPI, confinées à l'infrastructure
 // Anti-Corruption Layer : si PokéAPI renomme un champ, seul ce fichier change
 
-import { PokemonType } from '../../domain/pokemon.types'
-import type { Pokemon, PokemonId } from '../../domain/pokemon.types'
+import { PokemonType } from '../../domain/pokemon/pokemon.types'
+import type { Pokemon, PokemonId } from '../../domain/pokemon/pokemon.types'
 import { POKEAPI_TYPE_MAP } from '../pokeapi.shared'
 
 export interface PokemonListItemDto {

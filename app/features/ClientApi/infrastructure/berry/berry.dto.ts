@@ -1,9 +1,9 @@
 // DTOs Baies — formes brutes des réponses PokéAPI, confinées à l'infrastructure
 // Anti-Corruption Layer : si PokéAPI renomme un champ, seul ce fichier change
 
-import { PokemonType } from '../../domain/pokemon.types'
-import { BerryFirmness } from '../../domain/berry.types'
-import type { Berry, BerryId } from '../../domain/berry.types'
+import { PokemonType } from '../../domain/pokemon/pokemon.types'
+import { BerryFirmness } from '../../domain/berry/berry.types'
+import type { Berry, BerryId } from '../../domain/berry/berry.types'
 import { POKEAPI_TYPE_MAP } from '../pokeapi.shared'
 
 export interface BerryListDto {

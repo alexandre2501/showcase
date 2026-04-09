@@ -1,8 +1,7 @@
 // Entités du domaine Baie — TypeScript pur, zéro dépendance externe
 // naturalGiftType réutilise PokemonType : une baie Feu booste les attaques Feu
 
-import type { PokemonType } from './pokemon.types'
-import type { PaginatedResult } from './pokemon.types'
+import type { PokemonType, PaginatedResult } from '../pokemon/pokemon.types'
 
 export type BerryId = number & { readonly __brand: 'BerryId' }
 

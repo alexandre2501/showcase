@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { PokemonType } from '../domain/pokemon/pokemon.types'
-import type { Pokemon } from '../domain/pokemon/pokemon.types'
+import { BerryFirmness } from '../domain/berry/berry.types'
+import type { Berry } from '../domain/berry/berry.types'
 
-defineProps<{ pokemon: Pokemon }>()
+defineProps<{ berry: Berry }>()
 
 const TYPE_COLORS: Record<PokemonType, string> = {
   [PokemonType.FIRE]:     'bg-orange-500/20 text-orange-300 border-orange-500/30',
@@ -24,6 +25,14 @@ const TYPE_COLORS: Record<PokemonType, string> = {
   [PokemonType.STEEL]:    'bg-slate-400/20 text-slate-300 border-slate-400/30',
   [PokemonType.FAIRY]:    'bg-rose-400/20 text-rose-300 border-rose-400/30',
 }
+
+const FIRMNESS_COLORS: Record<BerryFirmness, string> = {
+  [BerryFirmness.VERY_SOFT]:  'text-emerald-400',
+  [BerryFirmness.SOFT]:       'text-lime-400',
+  [BerryFirmness.HARD]:       'text-amber-400',
+  [BerryFirmness.VERY_HARD]:  'text-orange-400',
+  [BerryFirmness.SUPER_HARD]: 'text-red-400',
+}
 </script>
 
 <template>
@@ -31,22 +40,26 @@ const TYPE_COLORS: Record<PokemonType, string> = {
     class="flex items-center gap-4 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4
            hover:border-zinc-700 transition-colors"
   >
-    <img
-      :src="pokemon.sprite"
-      :alt="pokemon.name"
-      class="w-14 h-14 object-contain shrink-0 image-rendering-pixelated"
-    />
+    <!-- Icône baie -->
+    <div class="w-14 h-14 shrink-0 rounded-lg bg-zinc-800/60 flex items-center justify-center text-2xl">
+      🫐
+    </div>
+
     <div class="min-w-0 flex-1">
-      <p class="text-xs text-zinc-600 font-mono mb-1">#{{ String(pokemon.id).padStart(3, '0') }}</p>
-      <h3 class="text-sm font-semibold text-zinc-100 mb-2">{{ pokemon.name }}</h3>
-      <div class="flex gap-1.5 flex-wrap">
+      <p class="text-xs text-zinc-600 font-mono mb-1">#{{ String(berry.id).padStart(3, '0') }}</p>
+      <h3 class="text-sm font-semibold text-zinc-100 mb-2">Baie {{ berry.name }}</h3>
+      <div class="flex gap-2 flex-wrap items-center">
+        <!-- Dureté -->
+        <span class="text-xs font-medium" :class="FIRMNESS_COLORS[berry.firmness]">
+          {{ berry.firmness }}
+        </span>
+        <span class="text-zinc-700">·</span>
+        <!-- Cadeau naturel -->
         <span
-          v-for="type in pokemon.types"
-          :key="type"
           class="text-xs px-2 py-0.5 rounded-full border font-medium capitalize"
-          :class="TYPE_COLORS[type]"
+          :class="TYPE_COLORS[berry.naturalGiftType]"
         >
-          {{ type }}
+          {{ berry.naturalGiftType }}
         </span>
       </div>
     </div>

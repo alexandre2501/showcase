@@ -2,7 +2,7 @@
 // Isolé par ressource : si l'endpoint /pokemon change, seul ce fichier est impacté
 
 import type { PokemonEndpoints } from '../../domain/IApiClient'
-import type { Pokemon, PokemonId, PokemonQuery, PaginatedResult } from '../../domain/pokemon.types'
+import type { Pokemon, PokemonId, PokemonQuery, PaginatedResult } from '../../domain/pokemon/pokemon.types'
 import type { PokemonListDto, PokemonDetailDto } from './pokemon.dto'
 import { pokemonFromDetailDto } from './pokemon.dto'
 import { idFromResourceUrl } from '../pokeapi.shared'
