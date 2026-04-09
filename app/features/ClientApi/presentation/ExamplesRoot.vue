@@ -14,7 +14,7 @@ provideApiClient(props.client)
 </script>
 
 <template>
-  <div class="flex flex-col sm:flex-row gap-10 items-start">
+  <div class="flex flex-col sm:flex-row gap-10 items-stretch">
     <div class="shrink-0">
       <p class="text-xs font-semibold tracking-widest uppercase text-zinc-600 mb-3">Pokémons</p>
       <PokemonList />

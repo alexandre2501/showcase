@@ -21,9 +21,9 @@ defineSlots<{
 </script>
 
 <template>
-  <div class="w-full max-w-sm">
-    <!-- Recherche (optionnelle) -->
-    <div v-if="setSearch !== undefined" class="mb-4">
+  <div class="w-full max-w-sm flex flex-col h-full">
+    <!-- Recherche (optionnelle) — toujours dans le flux pour aligner les deux listes -->
+    <div class="mb-4" :class="{ invisible: setSearch === undefined }">
       <input
         :value="search"
         type="text"
@@ -31,7 +31,7 @@ defineSlots<{
         class="w-full bg-zinc-800/60 border border-zinc-700 rounded-lg px-4 py-2.5 text-sm
                text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/60
                transition-colors"
-        @input="setSearch(($event.target as HTMLInputElement).value)"
+        @input="setSearch?.(($event.target as HTMLInputElement).value)"
       />
     </div>
 
@@ -46,42 +46,45 @@ defineSlots<{
     <!-- Erreur -->
     <p v-if="error" class="text-sm text-red-400 mb-4">{{ error }}</p>
 
-    <!-- Skeleton loading -->
-    <div v-if="isLoading" class="space-y-2">
-      <div v-for="i in 5" :key="i" class="h-[82px] rounded-xl bg-zinc-800/40 animate-pulse" />
+    <!-- Zone centrale — grandit pour pousser la pagination en bas -->
+    <div class="flex-1">
+      <!-- Skeleton loading -->
+      <div v-if="isLoading" class="space-y-2">
+        <div v-for="i in 5" :key="i" class="h-[82px] rounded-xl bg-zinc-800/40 animate-pulse" />
+      </div>
+
+      <template v-else>
+        <!-- Résultats vides -->
+        <div v-if="items.length === 0" class="py-12 text-center text-sm text-zinc-600">
+          Aucun {{ itemLabel }} trouvé
+        </div>
+
+        <!-- Cartes via scoped slot -->
+        <div v-else class="space-y-2">
+          <slot v-for="(item, index) in items" :key="index" :item="item" />
+        </div>
+      </template>
     </div>
 
-    <template v-else>
-      <!-- Résultats vides -->
-      <div v-if="items.length === 0" class="py-12 text-center text-sm text-zinc-600">
-        Aucun {{ itemLabel }} trouvé
-      </div>
-
-      <!-- Cartes via scoped slot -->
-      <div v-else class="space-y-2 mb-4">
-        <slot v-for="(item, index) in items" :key="index" :item="item" />
-      </div>
-
-      <!-- Pagination -->
-      <div class="flex items-center justify-between">
-        <button
-          :disabled="!hasPrevPage"
-          class="text-xs text-zinc-400 hover:text-zinc-100 disabled:text-zinc-700
-                 disabled:cursor-not-allowed transition-colors"
-          @click="goToPage(currentPage - 1)"
-        >
-          ← Précédent
-        </button>
-        <span class="text-xs text-zinc-600 tabular-nums">{{ currentPage }} / {{ totalPages }}</span>
-        <button
-          :disabled="!hasNextPage"
-          class="text-xs text-zinc-400 hover:text-zinc-100 disabled:text-zinc-700
-                 disabled:cursor-not-allowed transition-colors"
-          @click="goToPage(currentPage + 1)"
-        >
-          Suivant →
-        </button>
-      </div>
-    </template>
+    <!-- Pagination — toujours en bas -->
+    <div class="flex items-center justify-between mt-4">
+      <button
+        :disabled="!hasPrevPage"
+        class="text-xs text-zinc-400 hover:text-zinc-100 disabled:text-zinc-700
+               disabled:cursor-not-allowed transition-colors"
+        @click="goToPage(currentPage - 1)"
+      >
+        ← Précédent
+      </button>
+      <span class="text-xs text-zinc-600 tabular-nums">{{ currentPage }} / {{ totalPages }}</span>
+      <button
+        :disabled="!hasNextPage"
+        class="text-xs text-zinc-400 hover:text-zinc-100 disabled:text-zinc-700
+               disabled:cursor-not-allowed transition-colors"
+        @click="goToPage(currentPage + 1)"
+      >
+        Suivant →
+      </button>
+    </div>
   </div>
 </template>
