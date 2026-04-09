@@ -45,7 +45,6 @@
               <svg
                 class="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 transition-colors shrink-0 mt-0.5"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="2"
                 stroke="currentColor"
@@ -81,7 +80,6 @@
               <svg
                 class="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 transition-colors shrink-0 mt-0.5"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="2"
                 stroke="currentColor"
@@ -116,7 +114,6 @@
               <svg
                 class="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 transition-colors shrink-0 mt-0.5"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="2"
                 stroke="currentColor"
