@@ -4,8 +4,9 @@
 import type { BerryEndpoints } from '../../domain/IApiClient'
 import type { Berry, BerryId, BerryQuery } from '../../domain/berry.types'
 import type { PaginatedResult } from '../../domain/pokemon.types'
-import type { BerryListDto, BerryDetailDto } from '../pokeapi.dto'
-import { berryFromDetailDto, idFromResourceUrl } from '../pokeapi.dto'
+import type { BerryListDto, BerryDetailDto } from './berry.dto'
+import { berryFromDetailDto } from './berry.dto'
+import { idFromResourceUrl } from '../pokeapi.shared'
 
 const BASE_URL = 'https://pokeapi.co/api/v2'
 

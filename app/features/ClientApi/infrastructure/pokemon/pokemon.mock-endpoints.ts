@@ -18,7 +18,7 @@ const MOCK_POKEMONS: Pokemon[] = [
   { id: 63  as PokemonId, name: 'Abra',       types: [PokemonType.PSYCHIC],                     sprite: `${SPRITE_BASE}/63.png` },
   { id: 74  as PokemonId, name: 'Racaillou',  types: [PokemonType.ROCK, PokemonType.GROUND],    sprite: `${SPRITE_BASE}/74.png` },
   { id: 79  as PokemonId, name: 'Ramoloss',   types: [PokemonType.WATER, PokemonType.PSYCHIC],  sprite: `${SPRITE_BASE}/79.png` },
-  { id: 94  as PokemonId, name: 'Spectrum',   types: [PokemonType.GHOST, PokemonType.POISON],   sprite: `${SPRITE_BASE}/94.png` },
+  { id: 94  as PokemonId, name: 'Ectoplasma',   types: [PokemonType.GHOST, PokemonType.POISON],   sprite: `${SPRITE_BASE}/94.png` },
   { id: 104 as PokemonId, name: 'Osselait',   types: [PokemonType.GROUND],                      sprite: `${SPRITE_BASE}/104.png` },
   { id: 113 as PokemonId, name: 'Leveinard',  types: [PokemonType.NORMAL],                      sprite: `${SPRITE_BASE}/113.png` },
   { id: 129 as PokemonId, name: 'Magicarpe',  types: [PokemonType.WATER],                       sprite: `${SPRITE_BASE}/129.png` },

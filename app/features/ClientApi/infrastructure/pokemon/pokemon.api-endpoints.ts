@@ -3,8 +3,9 @@
 
 import type { PokemonEndpoints } from '../../domain/IApiClient'
 import type { Pokemon, PokemonId, PokemonQuery, PaginatedResult } from '../../domain/pokemon.types'
-import type { PokemonListDto, PokemonDetailDto } from '../pokeapi.dto'
-import { pokemonFromDetailDto, idFromResourceUrl } from '../pokeapi.dto'
+import type { PokemonListDto, PokemonDetailDto } from './pokemon.dto'
+import { pokemonFromDetailDto } from './pokemon.dto'
+import { idFromResourceUrl } from '../pokeapi.shared'
 
 const BASE_URL = 'https://pokeapi.co/api/v2'
 
