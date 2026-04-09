@@ -35,7 +35,7 @@
     <!-- Liste des légumes -->
     <ul class="space-y-2">
       <li
-        v-for="vegetable in vegetables.value"
+        v-for="vegetable in vegetables"
         :key="vegetable.id"
         class="flex items-center gap-3 p-3 rounded-lg border border-zinc-800 bg-zinc-900
                hover:border-zinc-700 transition-colors group cursor-pointer"
@@ -83,7 +83,7 @@
       </li>
 
       <!-- État vide -->
-      <li v-if="vegetables.value.length === 0" class="py-8 text-center text-sm text-zinc-600">
+      <li v-if="vegetables.length === 0" class="py-8 text-center text-sm text-zinc-600">
         Aucun légume dans cette catégorie.
       </li>
     </ul>

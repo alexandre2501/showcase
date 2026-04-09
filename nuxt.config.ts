@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  devServer: { port: 3000 },
   modules: ['@nuxtjs/tailwindcss', '@rstore/nuxt'],
   app: {
     baseURL: '/showcase/'

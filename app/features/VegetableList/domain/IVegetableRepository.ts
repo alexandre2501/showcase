@@ -1,7 +1,6 @@
 // Interface repository — contrat d'accès aux données, défini dans le domaine
 // L'application dépend de cette abstraction, jamais de rstore directement
 
-import type { Ref } from 'vue'
 import type { Vegetable, VegetableCategory } from './Vegetable'
 
 export interface VegetableFilter {
@@ -10,13 +9,14 @@ export interface VegetableFilter {
 
 export interface IVegetableRepository {
   /**
-   * Retourne une liste réactive de légumes, filtrable par catégorie.
-   * Le Ref se met à jour automatiquement quand le store sous-jacent change.
+   * Retourne un snapshot des légumes, filtrable par catégorie.
+   * Appelée dans un computed() Vue, la réactivité est assurée par le tracking
+   * automatique des dépendances de l'implémentation infrastructure.
    */
-  findAll(filter?: VegetableFilter): Ref<ReadonlyArray<Vegetable>>
+  findAll(filter?: VegetableFilter): ReadonlyArray<Vegetable>
 
   /**
-   * Bascule l'état done/undone d'un légume.
+   * Persiste l'état d'un légume (après mutation dans le domaine).
    */
-  toggleDone(id: string): Promise<void>
+  save(vegetable: Vegetable): Promise<void>
 }

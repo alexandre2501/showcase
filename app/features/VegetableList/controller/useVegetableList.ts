@@ -24,22 +24,27 @@ export function useVegetableList(
 ) {
   const activeFilter = ref<CategoryFilter>('tout')
 
+  // Source unique — toute la réactivité part d'ici
+  const allVegetables = computed(() => repository.findAll())
+
   const vegetables = computed(() =>
-    repository.findAll(
-      activeFilter.value === 'tout' ? undefined : { category: activeFilter.value },
-    ),
+    activeFilter.value === 'tout'
+      ? allVegetables.value
+      : allVegetables.value.filter(v => v.belongsTo(activeFilter.value as VegetableCategory)),
   )
 
-  // Statistiques dérivées — logique de présentation dans le controller, pas dans le composant
-  const totalCount = computed(() => repository.findAll().value.length)
-  const doneCount = computed(() => repository.findAll().value.filter(v => v.done).length)
+  // Statistiques dérivées de la même source
+  const totalCount = computed(() => allVegetables.value.length)
+  const doneCount = computed(() => allVegetables.value.filter(v => v.done).length)
 
   function setFilter(filter: CategoryFilter): void {
     activeFilter.value = filter
   }
 
   async function toggle(id: string): Promise<void> {
-    await repository.toggleDone(id)
+    const vegetable = allVegetables.value.find(v => v.id === id)
+    if (!vegetable) return
+    await repository.save(vegetable.toggle())
   }
 
   return {
