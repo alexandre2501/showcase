@@ -10,7 +10,7 @@ const PAGE_SIZE = 5
 export function usePokemons() {
   const service = injectPokemonService()
 
-  const pokemons    = ref<Pokemon[]>([])
+  const items       = ref<Pokemon[]>([])
   const isLoading   = ref(false)
   const error       = ref<string | null>(null)
   const search      = ref('')
@@ -31,7 +31,7 @@ export function usePokemons() {
         limit: PAGE_SIZE,
       }
       const result = await service.getAll(query)
-      pokemons.value    = result.items
+      items.value       = result.items
       totalPages.value  = result.totalPages
       total.value       = result.total
     } catch {
@@ -54,5 +54,5 @@ export function usePokemons() {
   // Vue batch les changements synchrones — un seul fetch même quand search + page changent ensemble
   watch([search, currentPage], fetchPokemons, { immediate: true })
 
-  return { pokemons, isLoading, error, search, currentPage, totalPages, total, hasNextPage, hasPrevPage, setSearch, goToPage }
+  return { items, isLoading, error, search, currentPage, totalPages, total, hasNextPage, hasPrevPage, setSearch, goToPage }
 }

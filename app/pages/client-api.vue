@@ -53,87 +53,75 @@
         </div>
       </div>
 
-      <!-- :key force le remontage du provider (et donc des composables) quand la source change -->
-      <ExamplesRoot :key="source" :client="source === 'http' ? httpClient : undefined">
-        <div class="flex flex-col sm:flex-row gap-10 items-start">
-          <!-- Pokémons -->
-          <div class="shrink-0">
-            <p class="text-xs font-semibold tracking-widest uppercase text-zinc-600 mb-3">Pokémons</p>
-            <PokemonList />
-          </div>
+      <div class="flex flex-col lg:flex-row gap-10 items-start">
+        <!-- :key force le remontage du provider (et donc des composables) quand la source change -->
+        <ExamplesRoot :key="source" :client="source === 'http' ? httpClient : undefined" />
 
-          <!-- Baies -->
-          <div class="shrink-0">
-            <p class="text-xs font-semibold tracking-widest uppercase text-zinc-600 mb-3">Baies</p>
-            <BerryList />
-          </div>
+        <!-- Explication -->
+        <div class="pt-2 min-w-0 flex-1">
+          <h3 class="text-base font-semibold text-zinc-100 mb-2">
+            {{ source === 'mock' ? 'Client mock' : 'PokéAPI' }}
+          </h3>
+          <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+            <template v-if="source === 'mock'">
+              Les données viennent d'un <code class="text-indigo-400 text-xs">MockApiClient</code>
+              entièrement en mémoire. Les controllers ne savent pas d'où viennent les données —
+              ils appellent leurs services respectifs et reçoivent des résultats paginés.
+            </template>
+            <template v-else>
+              Les données viennent de la vraie <code class="text-indigo-400 text-xs">PokéAPI</code>
+              via <code class="text-indigo-400 text-xs">HttpApiClient</code>. Les controllers sont
+              identiques — seul le client injecté a changé. Le mapper DTO traduit les types anglais
+              de l'API en valeurs du domaine.
+            </template>
+          </p>
 
-          <!-- Explication -->
-          <div class="pt-2 min-w-0 flex-1">
-            <h3 class="text-base font-semibold text-zinc-100 mb-2">
-              {{ source === 'mock' ? 'Client mock' : 'PokéAPI' }}
-            </h3>
-            <p class="text-sm text-zinc-400 leading-relaxed mb-6">
-              <template v-if="source === 'mock'">
-                Les données viennent d'un <code class="text-indigo-400 text-xs">MockApiClient</code>
-                entièrement en mémoire. Les controllers ne savent pas d'où viennent les données —
-                ils appellent leurs services respectifs et reçoivent des résultats paginés.
-              </template>
-              <template v-else>
-                Les données viennent de la vraie <code class="text-indigo-400 text-xs">PokéAPI</code>
-                via <code class="text-indigo-400 text-xs">HttpApiClient</code>. Les controllers sont
-                identiques — seul le client injecté a changé. Le mapper DTO traduit les types anglais
-                de l'API en valeurs du domaine.
-              </template>
-            </p>
+          <ul class="space-y-1.5 mb-8">
+            <li
+              v-for="point in (source === 'mock' ? mockPoints : httpPoints)"
+              :key="point"
+              class="flex items-start gap-2 text-sm text-zinc-500"
+            >
+              <span class="text-indigo-400 mt-0.5 shrink-0">—</span>
+              {{ point }}
+            </li>
+          </ul>
 
-            <ul class="space-y-1.5 mb-8">
-              <li
-                v-for="point in (source === 'mock' ? mockPoints : httpPoints)"
-                :key="point"
-                class="flex items-start gap-2 text-sm text-zinc-500"
-              >
-                <span class="text-indigo-400 mt-0.5 shrink-0">—</span>
-                {{ point }}
+          <!-- Fichiers clés -->
+          <div>
+            <p class="text-xs font-semibold tracking-widest uppercase text-zinc-600 mb-3">Fichiers clés</p>
+            <ul class="space-y-1.5">
+              <li v-for="file in (source === 'mock' ? mockFiles : httpFiles)" :key="file.path">
+                <a
+                  :href="`${GITHUB_BASE}${file.path}`"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-indigo-400
+                         transition-colors group"
+                >
+                  <span class="text-zinc-700 group-hover:text-indigo-600 transition-colors">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="font-mono text-xs">{{ file.label }}</span>
+                </a>
               </li>
             </ul>
-
-            <!-- Fichiers clés -->
-            <div>
-              <p class="text-xs font-semibold tracking-widest uppercase text-zinc-600 mb-3">Fichiers clés</p>
-              <ul class="space-y-1.5">
-                <li v-for="file in (source === 'mock' ? mockFiles : httpFiles)" :key="file.path">
-                  <a
-                    :href="`${GITHUB_BASE}${file.path}`"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-indigo-400
-                           transition-colors group"
-                  >
-                    <span class="text-zinc-700 group-hover:text-indigo-600 transition-colors">
-                      <svg
-                        class="w-3.5 h-3.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                        />
-                      </svg>
-                    </span>
-                    <span class="font-mono text-xs">{{ file.label }}</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
-      </ExamplesRoot>
+      </div>
     </section>
 
     <AppContactCta />
@@ -180,8 +168,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ExamplesRoot from '~/features/ClientApi/presentation/ExamplesRoot.vue'
-import PokemonList from '~/features/ClientApi/presentation/PokemonList.vue'
-import BerryList from '~/features/ClientApi/presentation/BerryList.vue'
 import { createHttpApiClient } from '~/features/ClientApi/infrastructure/HttpApiClient'
 
 const GITHUB_BASE = 'https://github.com/alexandre2501/showcase/blob/master/'

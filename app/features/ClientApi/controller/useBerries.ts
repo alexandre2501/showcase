@@ -10,7 +10,7 @@ const PAGE_SIZE = 5
 export function useBerries() {
   const service = injectBerryService()
 
-  const berries     = ref<Berry[]>([])
+  const items       = ref<Berry[]>([])
   const isLoading   = ref(false)
   const error       = ref<string | null>(null)
   const currentPage = ref(1)
@@ -26,7 +26,7 @@ export function useBerries() {
     try {
       const query: BerryQuery = { page: currentPage.value, limit: PAGE_SIZE }
       const result = await service.getAll(query)
-      berries.value    = result.items
+      items.value      = result.items
       totalPages.value = result.totalPages
       total.value      = result.total
     } catch {
@@ -43,5 +43,5 @@ export function useBerries() {
 
   watch(currentPage, fetchBerries, { immediate: true })
 
-  return { berries, isLoading, error, currentPage, totalPages, total, hasNextPage, hasPrevPage, goToPage }
+  return { items, isLoading, error, currentPage, totalPages, total, hasNextPage, hasPrevPage, goToPage }
 }
