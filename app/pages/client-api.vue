@@ -34,26 +34,53 @@
 
     <!-- Exemple interactif -->
     <section class="mb-20">
-      <h2 class="text-xs font-semibold tracking-widest uppercase text-zinc-500 mb-6">Exemple</h2>
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xs font-semibold tracking-widest uppercase text-zinc-500">Exemple</h2>
+
+        <!-- Toggle source -->
+        <div class="flex items-center gap-1 rounded-lg border border-zinc-800 bg-zinc-900 p-1">
+          <button
+            v-for="option in sourceOptions"
+            :key="option.value"
+            class="px-3 py-1 rounded-md text-xs font-medium transition-colors"
+            :class="source === option.value
+              ? 'bg-indigo-600 text-white'
+              : 'text-zinc-500 hover:text-zinc-300'"
+            @click="source = option.value"
+          >
+            {{ option.label }}
+          </button>
+        </div>
+      </div>
 
       <div class="flex flex-col sm:flex-row gap-10 items-start">
+        <!-- :key force le remontage du composable quand la source change -->
         <div class="shrink-0">
-          <PokemonList />
+          <PokemonList :key="source" :client="source === 'http' ? httpClient : undefined" />
         </div>
 
         <div class="pt-2 min-w-0 flex-1">
-          <h3 class="text-base font-semibold text-zinc-100 mb-2">Pokédex — client mock</h3>
+          <h3 class="text-base font-semibold text-zinc-100 mb-2">
+            Pokédex — {{ source === 'mock' ? 'client mock' : 'PokéAPI' }}
+          </h3>
           <p class="text-sm text-zinc-400 leading-relaxed mb-6">
-            Les données viennent d'un <code class="text-indigo-400 text-xs">MockApiClient</code>
-            entièrement en mémoire. Le controller ne sait pas d'où viennent les Pokémon —
-            il appelle <code class="text-indigo-400 text-xs">client.pokemons.getAll()</code>
-            et reçoit un résultat paginé. Swapper contre PokéAPI revient à passer
-            un <code class="text-indigo-400 text-xs">HttpApiClient</code> en paramètre.
+            <template v-if="source === 'mock'">
+              Les données viennent d'un <code class="text-indigo-400 text-xs">MockApiClient</code>
+              entièrement en mémoire. Le controller ne sait pas d'où viennent les Pokémon —
+              il appelle <code class="text-indigo-400 text-xs">client.pokemons.getAll()</code>
+              et reçoit un résultat paginé.
+            </template>
+            <template v-else>
+              Les données viennent de la vraie <code class="text-indigo-400 text-xs">PokéAPI</code>
+              via <code class="text-indigo-400 text-xs">HttpApiClient</code>. Le controller est
+              identique — seul le client injecté a changé. Le mapper DTO traduit les types anglais
+              de l'API en valeurs <code class="text-indigo-400 text-xs">PokemonType</code> du domaine.
+            </template>
           </p>
 
           <ul class="space-y-1.5 mb-8">
             <li
-              v-for="point in examplePoints"
+              v-for="point in (source === 'mock' ? mockPoints : httpPoints)"
               :key="point"
               class="flex items-start gap-2 text-sm text-zinc-500"
             >
@@ -66,7 +93,7 @@
           <div>
             <p class="text-xs font-semibold tracking-widest uppercase text-zinc-600 mb-3">Fichiers clés</p>
             <ul class="space-y-1.5">
-              <li v-for="file in keyFiles" :key="file.path">
+              <li v-for="file in (source === 'mock' ? mockFiles : httpFiles)" :key="file.path">
                 <a
                   :href="`${GITHUB_BASE}${file.path}`"
                   target="_blank"
@@ -128,11 +155,10 @@
           Substituabilité du client
         </p>
         <p class="text-sm text-zinc-400 leading-relaxed">
-          Migrer du mock vers PokéAPI revient à créer un
-          <code class="text-indigo-300 text-xs">HttpApiClient.ts</code>
-          qui implémente <code class="text-indigo-300 text-xs">IApiClient</code> via
-          <code class="text-indigo-300 text-xs">$fetch</code>, puis à le passer en paramètre du composable.
-          Le controller, la présentation et le domaine restent inchangés —
+          Passer du mock à PokéAPI n'a nécessité que deux fichiers infrastructure :
+          <code class="text-indigo-300 text-xs">pokeapi.dto.ts</code> (DTOs + mapper, Anti-Corruption Layer)
+          et <code class="text-indigo-300 text-xs">HttpApiClient.ts</code> (implémentation $fetch).
+          Le controller, la présentation et le domaine sont restés inchangés —
           c'est le principe d'inversion de dépendances (DIP) appliqué à la couche transport.
         </p>
       </div>
@@ -141,34 +167,47 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import PokemonList from '~/features/ClientApi/presentation/PokemonList.vue'
+import { createHttpApiClient } from '~/features/ClientApi/infrastructure/HttpApiClient'
 
 const GITHUB_BASE = 'https://github.com/alexandre2501/showcase/blob/master/'
 
-const examplePoints = [
-  'Recherche instantanée filtrée côté client mock — même interface qu\'une vraie API',
-  'Pagination : 5 Pokémon par page, navigation précédent / suivant',
+type Source = 'mock' | 'http'
+const source = ref<Source>('mock')
+const httpClient = createHttpApiClient()
+
+const sourceOptions: { value: Source; label: string }[] = [
+  { value: 'mock', label: 'Mock' },
+  { value: 'http', label: 'PokéAPI' },
+]
+
+const mockPoints = [
+  'Données statiques en mémoire — zéro latence réseau, zéro dépendance externe',
+  'Recherche filtrée et pagination calculées in-memory',
   'Le composable usePokemons() reçoit le client par injection — testable sans mock de module',
   'Aucune dépendance infrastructure dans le controller : il appelle client.pokemons.getAll()',
 ]
 
-const keyFiles = [
-  {
-    label: 'domain/pokemon.types.ts',
-    path: 'app/features/ClientApi/domain/pokemon.types.ts',
-  },
-  {
-    label: 'domain/IApiClient.ts',
-    path: 'app/features/ClientApi/domain/IApiClient.ts',
-  },
-  {
-    label: 'infrastructure/MockApiClient.ts',
-    path: 'app/features/ClientApi/infrastructure/MockApiClient.ts',
-  },
-  {
-    label: 'controller/usePokemons.ts',
-    path: 'app/features/ClientApi/controller/usePokemons.ts',
-  },
+const httpPoints = [
+  'Mêmes composants, même controller, même interface — seul le client a changé',
+  'Le mapper DTO (pokeapi.dto.ts) traduit les types anglais de l\'API en PokemonType du domaine',
+  'Si PokéAPI renomme un champ, seul pokeapi.dto.ts doit être mis à jour',
+  'Recherche par nom exact — PokéAPI ne supporte pas la recherche floue',
+]
+
+const mockFiles = [
+  { label: 'domain/IApiClient.ts', path: 'app/features/ClientApi/domain/IApiClient.ts' },
+  { label: 'domain/pokemon.types.ts', path: 'app/features/ClientApi/domain/pokemon.types.ts' },
+  { label: 'infrastructure/MockApiClient.ts', path: 'app/features/ClientApi/infrastructure/MockApiClient.ts' },
+  { label: 'controller/usePokemons.ts', path: 'app/features/ClientApi/controller/usePokemons.ts' },
+]
+
+const httpFiles = [
+  { label: 'infrastructure/pokeapi.dto.ts', path: 'app/features/ClientApi/infrastructure/pokeapi.dto.ts' },
+  { label: 'infrastructure/HttpApiClient.ts', path: 'app/features/ClientApi/infrastructure/HttpApiClient.ts' },
+  { label: 'domain/IApiClient.ts', path: 'app/features/ClientApi/domain/IApiClient.ts' },
+  { label: 'controller/usePokemons.ts', path: 'app/features/ClientApi/controller/usePokemons.ts' },
 ]
 
 const layers = [
